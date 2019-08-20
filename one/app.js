@@ -1,8 +1,8 @@
 /*
  * @Author: DevZhang 
  * @Date: 2019-08-15 23:26:07 
- * @Last Modified by: DevZhang
- * @Last Modified time: 2019-08-20 16:55:38
+ * @Last Modified by: zhang
+ * @Last Modified time: 2019-08-20 17:22:47
  */
 
 
@@ -17,9 +17,19 @@ router.get('/', async (ctx, next) => {
     // await next();
 })
 
-router.all('/', async (ctx, next) => {
-    console.log('match all method');
-    await next();
+router.get('/home', async (ctx, next) => {
+    console.log(ctx.request.query);
+    console.log(ctx.request.querystring);
+    ctx.response.body = `<h1>HOME page</h1>`
+})
+
+router.get('/404', async (ctx, next) => {
+    ctx.response.body = `<h1>404 page</h1>`
+})
+
+router.get('/home/:id/:name', async (ctx, next) => {
+    console.log(ctx.params);
+    ctx.response.body = `<h1>HOME page</h1>`
 })
 
 // 调用路由中间件
