@@ -2,9 +2,11 @@
  * @Author: DevZhang 
  * @Date: 2019-08-20 22:48:02 
  * @Last Modified by: DevZhang
- * @Last Modified time: 2019-08-20 22:54:50
+ * @Last Modified time: 2019-08-20 23:00:56
  */
 
+
+const HomeService = require('../service/home')
 
 module.exports = {
     index: async(ctx, next) => {
@@ -39,12 +41,13 @@ module.exports = {
         `
     },
 
-    register: async (ctx, next) => {
-        let {name, password} = ctx.request.body;
-        if (name === 'xiaofan' && password === '123456') {
-            ctx.response.body = `Hello ${name}`;
-        } else {
-            ctx.response.body = '账号信息错误'
-        }
+    register: async(ctx, next) => {
+        let {
+            name,
+            password
+        } = ctx.request.body
+
+        let data = await HomeService.register(name, password)
+        ctx.response.body = data;
     }
 }
