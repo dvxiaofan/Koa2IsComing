@@ -2,7 +2,7 @@
  * @Author: DevZhang 
  * @Date: 2019-08-15 23:26:07 
  * @Last Modified by: DevZhang
- * @Last Modified time: 2019-08-19 23:20:55
+ * @Last Modified time: 2019-08-20 16:55:38
  */
 
 
@@ -14,14 +14,12 @@ const router = require('koa-router')();
 // 添加路由
 router.get('/', async (ctx, next) => {
     ctx.response.body = `<h1>index page</h1>`
+    // await next();
 })
 
-router.get('/home', async (ctx, next) => {
-    ctx.response.body = `<h1>home home</h1>`
-})
-
-router.get('/404', async (ctx, next) => {
-    ctx.response.body = `<h1>404 404</h1>`
+router.all('/', async (ctx, next) => {
+    console.log('match all method');
+    await next();
 })
 
 // 调用路由中间件
