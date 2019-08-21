@@ -2,7 +2,7 @@
  * @Author: DevZhang 
  * @Date: 2019-08-20 22:48:02 
  * @Last Modified by: DevZhang
- * @Last Modified time: 2019-08-21 15:55:31
+ * @Last Modified time: 2019-08-21 22:24:52
  */
 
 
@@ -10,7 +10,7 @@ const HomeService = require('../service/home')
 
 module.exports = {
     index: async(ctx, next) => {
-        ctx.response.body = `<h1>index page</h1>`
+        await ctx.render('home/index', {title: 'xiaofan 欢迎您'})
     },
 
     404: async (ctx, next) => {
@@ -35,12 +35,16 @@ module.exports = {
     },
 
     register: async(ctx, next) => {
-        let {
-            name,
-            password
-        } = ctx.request.body
+        let params = ctx.request.body
+        let name = params.name
+        let password = params.password
+        let res = await HomeService.register(name, password)
 
-        let data = await HomeService.register(name, password)
-        ctx.response.body = data;
+        if (res.status === -1) {
+            await ctx.render('home/login',res.data)
+        } else {
+            ctx.state.title = '个人中心'
+            await ctx.render('home/success', res.data)
+        }
     }
 }
