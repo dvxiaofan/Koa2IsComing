@@ -2,7 +2,7 @@
  * @Author: DevZhang 
  * @Date: 2019-08-20 22:48:02 
  * @Last Modified by: DevZhang
- * @Last Modified time: 2019-08-20 23:00:56
+ * @Last Modified time: 2019-08-21 15:55:31
  */
 
 
@@ -29,16 +29,9 @@ module.exports = {
     },
 
     login: async (ctx, next) => {
-        ctx.response.body = 
-        `
-            <form action="/user/register" method="post">
-                <input name="name" type="text" placeholder="请输入用户名" />
-                <br/>
-                <input name="password" type="text" placeholder="请输入密码" />
-                <br/>
-                <button>gogogo</button>
-            </form>
-        `
+        await ctx.render('home/login', {
+            btnName: '登录'
+        })
     },
 
     register: async(ctx, next) => {

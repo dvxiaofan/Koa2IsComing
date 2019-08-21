@@ -2,16 +2,25 @@
  * @Author: DevZhang 
  * @Date: 2019-08-15 23:26:07 
  * @Last Modified by: DevZhang
- * @Last Modified time: 2019-08-21 15:27:59
+ * @Last Modified time: 2019-08-21 15:38:59
  */
 
 
-const Koa = require('koa');
-const app = new Koa();
-const bodyParser = require('koa-bodyparser');
-const router = require('./router');
+const Koa = require('koa')
+const path = require('path')
+const bodyParser = require('koa-bodyparser')
+const nunjucks = require('koa-nunjucks-2')
 
-// const nunjucks = require('')
+const app = new Koa()
+const router = require('./router')
+
+app.use(nunjucks({
+    ext: 'html',
+    path: path.join(__dirname, 'views'), // 指定视图目录
+    nunjucksConfig: {
+        trimBlocks: true    // 开启转义, 防Xss
+    }
+}));
 
 app.use(bodyParser());
 
